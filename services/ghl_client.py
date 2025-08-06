@@ -1,9 +1,7 @@
-# Arquivo: services/ghl_client.py
-# Responsabilidade: Lidar com todas as interações com a API do GoHighLevel.
-
 import requests
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv() # Carrega as variáveis do arquivo .env
 
@@ -31,6 +29,9 @@ class GHLClient:
         }
         
         try:
+            # --- CORREÇÃO APLICADA AQUI ---
+            # Usar o parâmetro 'json' é a forma mais robusta e recomendada pela biblioteca requests
+            # para enviar dados JSON. Ele garante que os cabeçalhos sejam tratados corretamente.
             response = requests.post(url, headers=self.headers, json=payload)
             response.raise_for_status() # Lança um erro para respostas 4xx/5xx
             print(f"GHL: Mensagem enviada para {contact_id} com sucesso. Status: {response.status_code}")

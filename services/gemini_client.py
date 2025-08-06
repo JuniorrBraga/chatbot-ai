@@ -1,6 +1,3 @@
-# Arquivo: services/gemini_client.py
-# Responsabilidade: Lidar com todas as interações com a API do Google Gemini.
-
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
@@ -103,4 +100,4 @@ class GeminiClient:
         except Exception as e:
             print(f"!!! Gemini Erro ao gerar conteúdo: {e}")
             # Resposta de fallback em caso de erro da API
-            return "continuar_conversa", "Peço desculpas, estou com uma instabilidade no sistema. Poderia repetir sua última mensagem, por favor?"
+            return "continuar_conerva", "Peço desculpas, estou com uma instabilidade no sistema. Poderia repetir sua última mensagem, por favor?"

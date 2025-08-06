@@ -1,6 +1,3 @@
-# Arquivo: app.py
-# Responsabilidade: Ponto de entrada da aplicação, gerencia as rotas web e orquestra os serviços.
-
 from flask import Flask, request, jsonify
 from services.ghl_client import GHLClient
 from services.gemini_client import GeminiClient
@@ -21,11 +18,12 @@ def ghl_webhook_handler():
     print(">>> Webhook Recebido do GHL:")
     print(json.dumps(data, indent=2))
 
-    contact_id = data.get('contactId')
-    user_message = data.get('body')
+    # Ajustamos os nomes dos campos para corresponderem ao que o GHL realmente envia.
+    contact_id = data.get('contact_id') 
+    user_message = data.get('message') or data.get('body') # Tenta 'message' primeiro, depois 'body'
 
     if not contact_id or not user_message:
-        print("!!! Erro: Faltando contact_id ou mensagem no corpo do webhook.")
+        print(f"!!! Erro: Faltando contact_id ou mensagem no corpo do webhook. ID Encontrado: {contact_id}, Mensagem Encontrada: {user_message}")
         return jsonify({"status": "error", "message": "Faltando contact_id ou mensagem"}), 400
 
     # Em um projeto futuro, aqui você buscaria o histórico da conversa de um banco de dados.
